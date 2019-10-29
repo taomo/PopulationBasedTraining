@@ -11,6 +11,8 @@ from model import Net
 from trainer import Trainer
 from utils import get_optimizer, exploit_and_explore
 
+from data import get_data
+
 mp = _mp.get_context('spawn')
 
 
@@ -117,8 +119,11 @@ if __name__ == "__main__":
     hyper_params = {'optimizer': ["lr", "momentum"], "batch_size": True}
     train_data_path = test_data_path = './data'
 
-    train_data = MNIST(train_data_path, True, transforms.ToTensor(), download=True)
-    test_data = MNIST(test_data_path, False, transforms.ToTensor(), download=True)
+    # train_data = MNIST(train_data_path, True, transforms.ToTensor(), download=True)
+    # test_data = MNIST(test_data_path, False, transforms.ToTensor(), download=True)
+
+    train_data, test_data = get_data()
+
     workers = [Worker(batch_size, epoch, max_epoch, train_data, test_data, population, finish_tasks, device)
                for _ in range(3)]
     workers.append(Explorer(epoch, max_epoch, population, finish_tasks, hyper_params))

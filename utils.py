@@ -3,6 +3,7 @@ import torch
 import torch.optim as optim
 
 
+
 def get_optimizer(model):
     """This is where users choose their optimizer and define the
        hyperparameter space they'd like to search."""
@@ -32,3 +33,10 @@ def exploit_and_explore(top_checkpoint_path, bot_checkpoint_path, hyper_params,
                       optim_state_dict=optimizer_state_dict,
                       batch_size=batch_size)
     torch.save(checkpoint, bot_checkpoint_path)
+
+
+
+
+
+
+
