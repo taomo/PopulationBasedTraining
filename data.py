@@ -20,6 +20,7 @@ import argparse
 import torch.optim as optim
 import torch.nn.functional as F
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 usecols=[0, 1, 2, 3, 4, 5]
 k = 1 # 向前的时刻
@@ -164,6 +165,11 @@ def get_data():
 
     BATCH_SIZE = 100
 
+    train_x = train_x.cuda()
+    train_y = train_y.cuda()
+    test_x = test_x.cuda()
+    test_y = test_y.cuda()
+
     train_dataset = CustomDataset(tensor_x = train_x, tensor_y = train_y)    
     # 将数据转换为torch的dataset格式    
     # torch_dataset = TensorDataset(train_x.values.T, train_y.values.T)
@@ -172,13 +178,9 @@ def get_data():
     test_dataset = CustomDataset(tensor_x = test_x, tensor_y = test_y) 
 
 
-    print(1+2)
+    # print(1+2)
 
     return train_dataset, test_dataset
-
-
-
-
 
 
 
